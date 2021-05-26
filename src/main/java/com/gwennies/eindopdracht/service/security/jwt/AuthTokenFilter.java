@@ -19,13 +19,7 @@ import com.gwennies.eindopdracht.service.UserDetailsServiceImpl;
 
 import java.io.IOException;
 
-/**
- * AuthTokenFilter extracts username/password from the received token using JwtUtils, then based on the extracted
- * data, AuthTokenFilter:
- * – creates a AuthenticationToken (that implements Authentication)
- * – uses the AuthenticationToken as Authentication object and stores it in the SecurityContext for future filter uses
- * (e.g: Authorization filters).
- */
+
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
