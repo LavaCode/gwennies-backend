@@ -5,11 +5,11 @@ import java.util.Optional;
 
 import com.gwennies.eindopdracht.domain.User;
 
-public interface CustomerService {
+public interface UserService {
     // long createCustomer(User customer);
     // void updateCustomer(long id, User customer);
     // void deleteCustomer(long id);
-    Collection<User> getCustomers(String customer_number);
-    // Optional<User> getCustomerById(long id);
+    Collection<User> getUsers(String username);
+    Optional<User> getUserById(long id);
     // boolean customerExistsById(long id);
 }

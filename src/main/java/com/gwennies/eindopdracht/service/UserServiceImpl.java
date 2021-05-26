@@ -11,15 +11,15 @@ import com.gwennies.eindopdracht.exceptions.RecordNotFoundException;
 import com.gwennies.eindopdracht.repository.UserRepository;
 
 @Service
-public class CustomerServiceImpl implements CustomerService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public Collection<User> getCustomers(String customer_number) {
-        if (customer_number != null && !customer_number.isEmpty()) {
-            return userRepository.findAllByCustomerNumber(customer_number);
+    public Collection<User> getUsers(String username) {
+        if (username != null && !username.isEmpty()) {
+            return userRepository.findAllByUsername(username);
         }
         else {
             return userRepository.findAll();
@@ -52,11 +52,11 @@ public class CustomerServiceImpl implements CustomerService {
     //     userRepository.deleteById(id);
     // }
 
-    // @Override
-    // public Optional<User> getCustomerById(long id) {
-    //     if (!userRepository.existsById(id)) throw new RecordNotFoundException();
-    //     return userRepository.findById(id);
-    // }
+    @Override
+    public Optional<User> getUserById(long id) {
+        if (!userRepository.existsById(id)) throw new RecordNotFoundException();
+        return userRepository.findById(id);
+    }
 
     // @Override
     // public boolean customerExistsById(long id) {

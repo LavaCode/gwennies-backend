@@ -2,7 +2,8 @@ package com.gwennies.eindopdracht.controller;
 
 import java.util.Optional;
 
-import com.gwennies.eindopdracht.service.CustomerService;
+import com.gwennies.eindopdracht.domain.User;
+import com.gwennies.eindopdracht.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,17 +24,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
     @GetMapping(value = "")
-    public ResponseEntity<Object> getUsers(@RequestParam(name="customer_number", required=false) String customer_number) {
-        return ResponseEntity.ok().body(customerService.getCustomers(customer_number));
+    public ResponseEntity<Object> getUsers(@RequestParam(name="username", required=false) String username) {
+        return ResponseEntity.ok().body(userService.getUsers(username));
     }
 
-    // @GetMapping(value = "/{id}")
-    // public ResponseEntity<Optional<Customer>> getCustomer(@PathVariable("id") int id) {
-    //     return ResponseEntity.ok().body(customerService.getCustomerById(id));
-    // }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Optional<User>> getUser(@PathVariable("id") int id) {
+        return ResponseEntity.ok().body(userService.getUserById(id));
+    }
 
     // @PostMapping(value = "")
     // public ResponseEntity<Object> createCustomer(@RequestBody Customer customer) {
