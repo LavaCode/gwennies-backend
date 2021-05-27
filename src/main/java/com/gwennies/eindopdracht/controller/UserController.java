@@ -1,5 +1,6 @@
 package com.gwennies.eindopdracht.controller;
 
+import java.net.URI;
 import java.util.Optional;
 
 import com.gwennies.eindopdracht.domain.User;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -36,9 +38,10 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUserById(id));
     }
 
+    // NOT IN USE
     // @PostMapping(value = "")
-    // public ResponseEntity<Object> createCustomer(@RequestBody Customer customer) {
-    //     long newId = customerService.createCustomer(customer);
+    // public ResponseEntity<Object> createUser(@RequestBody User user) {
+    //     long newId = userService.createUser(user);
 
     //     URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
     //             .buildAndExpand(newId).toUri();
@@ -46,16 +49,15 @@ public class UserController {
     //     return ResponseEntity.created(location).build();
     // }
 
-    // @PutMapping(value = "/{id}")
-    // public ResponseEntity<Object> updateCustomer(@PathVariable("id") int id, @RequestBody Customer customer) {
-    //     customerService.updateCustomer(id, customer);
-    //     return ResponseEntity.noContent().build();
-    // }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody User user) {
+        userService.updateUser(id, user);
+        return ResponseEntity.noContent().build();
+    }
 
-    // @DeleteMapping(value = "/{id}")
-    // public ResponseEntity<Object> deleteCustomer(@PathVariable("id") int id) {
-    //     customerService.deleteCustomer(id);
-    //     return ResponseEntity.noContent().build();
-    // }
-
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable("id") int id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
 }

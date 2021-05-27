@@ -6,10 +6,10 @@ import java.util.Optional;
 import com.gwennies.eindopdracht.domain.User;
 
 public interface UserService {
-    // long createCustomer(User customer);
-    // void updateCustomer(long id, User customer);
-    // void deleteCustomer(long id);
+    long createUser(User user);
+    void updateUser(long id, User user);
+    void deleteUser(long id);
     Collection<User> getUsers(String username);
     Optional<User> getUserById(long id);
-    // boolean customerExistsById(long id);
+    boolean userExistsById(long id);
 }

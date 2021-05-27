@@ -1,6 +1,7 @@
 package com.gwennies.eindopdracht.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -12,6 +13,13 @@ import com.gwennies.eindopdracht.repository.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private PasswordEncoder encoder;
+
+    @Autowired
+    public void setEncoder(PasswordEncoder passwordEncoder) {
+        this.encoder = passwordEncoder;
+    }
 
     @Autowired
     private UserRepository userRepository;
@@ -26,31 +34,34 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    // @Override
-    // public long createCustomer(User customer) {
-    //     User newCustomer = userRepository.save(customer);
-    //     return newCustomer.getId();
-    // }
+    @Override
+    public long createUser(User user) {
+        User newUser = userRepository.save(user);
+        return newUser.getId();
+    }
 
-    // @Override
-    // public void updateCustomer(long id, User newCustomer) {
-    //     Optional<User> optionalCustomer = userRepository.findById(id);
-    //     User customer;
-    //     if (optionalCustomer.isPresent()) {
-    //         customer = optionalCustomer.get();
-    //         customer.setUsername(newCustomer.getUsername());
-    //         userRepository.save(customer);
-    //     }
-    //     else {
-    //         throw new RecordNotFoundException();
-    //     }
-    // }
+    @Override
+    public void updateUser(long id, User newUser) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user;
+        if (optionalUser.isPresent()) {
+            user = optionalUser.get();
+            user.setUsername(newUser.getUsername());
+            user.setEmail(newUser.getEmail());
+            // user.setPassword(newUser.getPassword());
+            user.setPassword(encoder.encode(newUser.getPassword()));
+            userRepository.save(user);
+        }
+        else {
+            throw new RecordNotFoundException();
+        }
+    }
 
-    // @Override
-    // public void deleteCustomer(long id) {
-    //     if (!userRepository.existsById(id)) throw new RecordNotFoundException();
-    //     userRepository.deleteById(id);
-    // }
+    @Override
+    public void deleteUser(long id) {
+        if (!userRepository.existsById(id)) throw new RecordNotFoundException();
+        userRepository.deleteById(id);
+    }
 
     @Override
     public Optional<User> getUserById(long id) {
@@ -58,9 +69,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
-    // @Override
-    // public boolean customerExistsById(long id) {
-    //     return userRepository.existsById(id);
-    // }
+    @Override
+    public boolean userExistsById(long id) {
+        return userRepository.existsById(id);
+    }
 
 }
