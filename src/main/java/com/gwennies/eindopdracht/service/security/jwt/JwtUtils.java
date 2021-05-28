@@ -33,6 +33,7 @@ public class JwtUtils {
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
+                // .setSubject(Long.toString(userPrincipal.getId())) --> dan werkt de functionaliteit niet meer naar behoren
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

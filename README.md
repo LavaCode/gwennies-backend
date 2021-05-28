@@ -1,42 +1,69 @@
 # Documentation Backend 
-# --NOTE: current readme needs to be updated. All endpoints do NOT work at the moment. 
 
-## Avaiable Endpoints
+## Available Endpoints
 
-* GET http://localhost:8080/customers
-  returns json array of customers
+* GET http://localhost:8090/users
+  returns json array of all users
+  *- provide JWT token*
 
-* GET http://localhost:8080/customers?customer_number={nr}
-  returns json array of customers with optional search on customer number {nr}
+* GET http://localhost:8090/users/{id}
+  return json object of single users 
+  *- provide JWT token*
 
-* GET http://localhost:8080/customers/{id}
-  return json object of single customer
-
-* POST http://localhost:8080/customers
-  creates cust
-
-* PUT http://localhost:8080/customers/{id}
-  replaces customer with customer provided
+* PUT http://localhost:8090/users/{id}
+  replaces user with new user details
+  *- provide JWT token*
   
-* DELETE http://localhost:8080/customers/{id}
-  deletes customer
-  
-## Installation
+* DELETE http://localhost:8090/users/{id}
+  deletes user
+  *- provide JWT token*
 
-1. Load project in IntelliJ. 
-   Maven will start synchronizing dependencies
-   
-2. Run the project. 
-   If all is well de endpoints will be available
-   
-## Comments
-
-1.  Java version 15
-    openjdk-15.jdk
-    
-2.  Database H2
-    This is an in-memory database. No installation required.
-    
-3.  Cross-Origin is enabled for all endpoints and all origins.
-
-4.  No authorization required.
+### Gebruiker aanmaken
+Praat via Postman met de volgende link: `http://localhost:8080/api/auth/signup` en geef de volgende JSON in de body mee:
+#### Gebruiker met userrol aanmaken
+```json
+{
+    "username": "user",
+    "email" : "user@user.com",
+    "password" : "123456",
+    "role": ["user"]
+}
+```
+#### Gebruiker met adminrol aanmaken
+```json
+{
+    "username": "admin",
+    "email" : "admin@admin.com",
+    "password" : "123456",
+    "role": ["admin"]
+}
+```
+Praat via Postman met de volgende link: `http://localhost:8080/api/auth/signin` en geef de volgende JSON in de body mee:
+#### Inloggen user
+```json
+{
+    "username":"user",
+    "password":"123456"
+}
+```
+#### Resultaat
+De backend-server communiceert het volgende (soortgelijks) terug:
+```json
+{
+    "id": 6,
+    "username": "user",
+    "email": "user@user.com",
+    "roles": [
+        "ROLE_USER"
+    ],
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtb2QzIiwiaWF0IjoxNTk1NTg4MDk0LCJleHAiOjE1OTU2NzQ0OTR9.AgP4vCsgw5TMj_ePbPzMJXWWBNfFphJBHzAvTFyW9fzZ6UL-JO42pRq9puXAOlGh4hTijspAQAS-J8doHqADTA",
+    "tokenType": "Bearer"
+}
+```
+#### Reeds aangemaakte admin-account - direct te gebruiken
+```json
+{
+    "username":"admin",
+    "password":"admin123456"
+}
+```
