@@ -36,18 +36,7 @@ public class ProductController {
 	public ResponseEntity<List<Product>> getAllProducts() {
 		List<Product> list = productService.getAllProducts();
 		return ResponseEntity.ok(list);
-		// return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 	}
-
-	// @PostMapping("/product")
-	// public ResponseEntity<?> findProductByName(@RequestParam("product") String name) throws ProductException {
-	// 	Product product = productService.findProductByName(name);
-	// 	if (product == null) {
-	// 		logger.error("Product with name {} not found.", name);
-	// 		throw new ProductException("Product with name " + name + " not found", HttpStatus.NOT_FOUND);
-	// 	}
-	// 	return ResponseEntity.ok(product);
-	// }
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findProductById(@PathVariable Long id) throws ProductException {

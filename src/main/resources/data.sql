@@ -2,10 +2,16 @@ INSERT INTO role(name) VALUES('ROLE_USER');
 INSERT INTO role(name) VALUES('ROLE_MODERATOR');
 INSERT INTO role(name) VALUES('ROLE_ADMIN');
 
--- Aanmaken van default users
+-- Create default admin [start ID at 901]
 INSERT INTO app_user(id, email, username, password) VALUES
-(999, 'admin@admin.com', 'admin', '$2y$12$Z9aYkDN6v98IWJWQvlIYSOMbW5p4jdkRK9vdh8OybpF7FpQzgFi9K');
+(901, 'admin@admin.com', 'admin', '$2y$12$Z9aYkDN6v98IWJWQvlIYSOMbW5p4jdkRK9vdh8OybpF7FpQzgFi9K');
 
--- Hier maak koppel je de user in de database (role_id: 3 = admin level)
+-- Link defualt admin to role level [Role level 3 = ADMIN]
 INSERT INTO user_role(user_id, role_id) VALUES
-(999, 3);
+(901, 3);
+
+-- Create default products [Start at ID 9001]
+INSERT INTO product(id, long_description, name, price, quantity, short_description) VALUES 
+(9001, 'This is a cool mombag', 'BAG_01', 29.99, 2, 'handmade mombag');
+
+-- Upload default images [to be made/tested]

@@ -12,10 +12,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
@@ -30,6 +26,10 @@ public class Product {
 	@Size(max = 45, message = "Name must be maximum of 45 characters.")
 	@NotBlank(message = "Name cannot be blank.")
 	String name;
+    
+    @Column
+    private String short_description;
+    private String long_description;
 
 	@NotNull
 	@ColumnDefault("0")
@@ -37,56 +37,71 @@ public class Product {
 	@Min(value = 0, message= "Quantity should be 0 or higher.")
 	int quantity;
 
-    private String shortDescription;
-    private String longDescription;
-    
+    @NotNull
+	@ColumnDefault("0")
+    @Min(value = 0, message= "Quantity should be 0 or higher.")
+    private double price;
 
-	public Product() {
+    public Product() {
 		super();
 	}
 
-	public Product(String name, String shortDescription, int quantity) {
+	public Product(String name, String shortDescription, String longDescription, double price, int quantity) {
 		super();
 		this.name = name;
 		this.quantity = quantity;
+        this.short_description = shortDescription;
+        this.long_description = longDescription;
+        this.price = price;
 	}
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public int getQuantity() {
-		return quantity;
-	}
+    public int getQuantity() {
+        return this.quantity;
+    }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-	@Override
-	public String toString() {
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = "";
-		try {
-			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			jsonString = mapper.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return jsonString;
-	}
+    public String getShortDescription() {
+        return this.short_description;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.short_description = shortDescription;
+    }
+
+    public String getLongDescription() {
+        return this.long_description;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.long_description = longDescription;
+    }
+
+    public double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }
 
 

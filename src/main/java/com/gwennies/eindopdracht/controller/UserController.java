@@ -35,17 +35,6 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUserById(id));
     }
 
-    // NOT IN USE
-    // @PostMapping(value = "")
-    // public ResponseEntity<Object> createUser(@RequestBody User user) {
-    //     long newId = userService.createUser(user);
-
-    //     URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-    //             .buildAndExpand(newId).toUri();
-
-    //     return ResponseEntity.created(location).build();
-    // }
-
     @PutMapping(value = "/{id}")
     public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody User user) {
         userService.updateUser(id, user);

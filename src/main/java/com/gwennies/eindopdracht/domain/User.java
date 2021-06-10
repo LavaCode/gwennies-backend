@@ -26,6 +26,7 @@ public class User {
             name = "native",
             strategy = "native"
     )
+    
     @Column(columnDefinition = "serial")
     private long id;
     private String username;
