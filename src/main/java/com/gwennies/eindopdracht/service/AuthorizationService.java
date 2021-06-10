@@ -98,13 +98,11 @@ public class AuthorizationService {
                         Role adminRole = roleRepository.findByName(EnumRoles.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));
                         roles.add(adminRole);
-
                         break;
                     case "mod":
                         Role modRole = roleRepository.findByName(EnumRoles.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException(ROLE_NOT_FOUND_ERROR));
                         roles.add(modRole);
-
                         break;
                     default:
                         Role userRole = roleRepository.findByName(EnumRoles.ROLE_USER)
