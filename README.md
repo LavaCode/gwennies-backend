@@ -18,9 +18,42 @@
   deletes user
   *- provide JWT token*
 
-### Gebruiker aanmaken
-Praat via Postman met de volgende link: `http://localhost:8080/api/auth/signup` en geef de volgende JSON in de body mee:
-#### Gebruiker met userrol aanmaken
+* POST http://localhost:8090/products/
+  add product
+  *- provide JWT token*
+
+* PUT http://localhost:8090/products/{id}
+  update product by id
+  *- provide JWT token*
+
+* GET http://localhost:8090/products/
+  get products
+  *- provide JWT token*
+
+* GET http://localhost:8090/products/{id}
+  get products by id
+  *- provide JWT token*
+
+* DELETE http://localhost:8090/products/{id}
+  delete products by id
+  *- provide JWT token*
+
+* POST http://localhost:8090/upload
+  upload file
+  *- provide JWT token*
+
+* GET http://localhost:8090/files
+  get all files
+  *- provide JWT token*
+
+* GET http://localhost:8090/files/{unique-id}
+  download file
+  *- provide JWT token*
+
+### Create user
+use postman with this endpoint: `http://localhost:8080/api/auth/signup`
+Enter the following credentials in 'Body' as RAW JSON 
+#### Create user:
 ```json
 {
     "username": "user",
@@ -29,7 +62,7 @@ Praat via Postman met de volgende link: `http://localhost:8080/api/auth/signup` 
     "role": ["user"]
 }
 ```
-#### Gebruiker met adminrol aanmaken
+#### Create admin:
 ```json
 {
     "username": "admin",
@@ -38,16 +71,17 @@ Praat via Postman met de volgende link: `http://localhost:8080/api/auth/signup` 
     "role": ["admin"]
 }
 ```
-Praat via Postman met de volgende link: `http://localhost:8080/api/auth/signin` en geef de volgende JSON in de body mee:
-#### Inloggen user
+### Login user
+use postman with this endpoint: `http://localhost:8080/api/auth/signin` 
+Enter the following credentials in 'Body' as RAW JSON 
+#### Login user:
 ```json
 {
     "username":"user",
     "password":"123456"
 }
 ```
-#### Resultaat
-De backend-server communiceert het volgende (soortgelijks) terug:
+#### Result:
 ```json
 {
     "id": 6,
@@ -60,10 +94,20 @@ De backend-server communiceert het volgende (soortgelijks) terug:
     "tokenType": "Bearer"
 }
 ```
-#### Reeds aangemaakte admin-account - direct te gebruiken
+#### Predefined admin credentials:
 ```json
 {
     "username":"admin",
     "password":"admin123456"
+}
+```
+### Add a product:
+```json
+{
+    "longDescription": "This is a long description",
+    "name": "Mombag 01",
+    "price": 29.99,
+    "quantity": 2,
+    "shortDescription": "This is a short description"
 }
 ```
