@@ -25,21 +25,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("/products")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class ProductController {
 
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping()
+	@GetMapping("/products")
 	@CrossOrigin(origins = "http://localhost:8080")
 	public ResponseEntity<List<Product>> getAllProducts() {
 		List<Product> list = productService.getAllProducts();
 		return ResponseEntity.ok(list);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/products/{id}")
 	public ResponseEntity<?> findProductById(@PathVariable Long id) throws ProductException {
 		Product product = productService.findProductById(id);
 		if (product == null) {
@@ -48,7 +47,7 @@ public class ProductController {
 		return ResponseEntity.ok(product);
 	}
 
-	@PostMapping()
+	@PostMapping("/add")
 	public ResponseEntity<?> addProduct(@Valid @RequestBody Product product, Errors errors) throws ProductException {
 
 		if (errors.hasErrors()) {
@@ -69,7 +68,7 @@ public class ProductController {
 		return ResponseEntity.created(location).build();
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/change/{id}")
 	public ResponseEntity<?> updateProduct(@PathVariable Long id, @Valid @RequestBody Product product, Errors errors)
 			throws ProductException {
 		if (errors.hasErrors()) {
@@ -85,7 +84,7 @@ public class ProductController {
 		return ResponseEntity.ok(product);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteProduct(@PathVariable Long id) throws ProductException {
 		Product currentProduct = productService.findProductById(id);
 		if (currentProduct == null) {

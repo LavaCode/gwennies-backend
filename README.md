@@ -18,11 +18,11 @@
   deletes user
   *- provide JWT token*
 
-* POST http://localhost:8090/products/
+* POST http://localhost:8090/add/
   add product
   *- provide JWT token*
 
-* PUT http://localhost:8090/products/{id}
+* PUT http://localhost:8090/change/{id}
   update product by id
   *- provide JWT token*
 
@@ -34,7 +34,7 @@
   get products by id
   *- provide JWT token*
 
-* DELETE http://localhost:8090/products/{id}
+* DELETE http://localhost:8090/delete/{id}
   delete products by id
   *- provide JWT token*
 
