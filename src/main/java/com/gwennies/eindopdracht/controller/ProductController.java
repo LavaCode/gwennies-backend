@@ -33,6 +33,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping()
+	@CrossOrigin(origins = "http://localhost:8080")
 	public ResponseEntity<List<Product>> getAllProducts() {
 		List<Product> list = productService.getAllProducts();
 		return ResponseEntity.ok(list);
