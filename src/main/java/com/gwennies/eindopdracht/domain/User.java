@@ -19,9 +19,10 @@ public class User {
 
     @Id
     @GeneratedValue(
-            strategy= GenerationType.AUTO,
+            strategy= GenerationType.IDENTITY,
             generator="native"
     )
+    
     @GenericGenerator(
             name = "native",
             strategy = "native"
@@ -31,6 +32,11 @@ public class User {
     private long id;
     private String username;
     private String email;
+    private String firstname;
+    private String lastname;
+    private String streetname;
+    private String zipcode;
+    private String country;
     private String password;
 
     @ManyToMany
@@ -43,9 +49,14 @@ public class User {
 
     }
 
-    public User(String username, String email, String password) {
-        this.username = username;
+    public User(String username, String email, String firstname, String lastname, String streetname, String zipcode, String country, String password) {
+        this.username = username; 
         this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.streetname = streetname;
+        this.zipcode = zipcode;
+        this.country = country;
         this.password = password;
     }
 
@@ -81,6 +92,46 @@ public class User {
         this.password = password;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getStreetname() {
+        return streetname;
+    }
+
+    public void setStreetname(String streetname) {
+        this.streetname = streetname;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -88,4 +139,8 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 }
+
+
+

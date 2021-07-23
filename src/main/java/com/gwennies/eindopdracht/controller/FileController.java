@@ -34,7 +34,7 @@ public class FileController {
       String message = "";
       try {
         storageService.store(file);
-  
+        System.out.println(file);
         message = "Uploaded the file successfully: " + file.getOriginalFilename();
         return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
       } catch (Exception e) {
@@ -62,7 +62,7 @@ public class FileController {
       return ResponseEntity.status(HttpStatus.OK).body(files);
     }
   
-    @GetMapping("/files/{id}")
+    @GetMapping(value = "/files/{id}")
     public ResponseEntity<byte[]> getFile(@PathVariable String id) {
       FileDB fileDB = storageService.getFile(id);
   

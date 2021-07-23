@@ -18,9 +18,9 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "product")
 public class Product {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
 	@Column(length = 45, nullable = false)
 	@Size(max = 45, message = "Name must be maximum of 45 characters.")

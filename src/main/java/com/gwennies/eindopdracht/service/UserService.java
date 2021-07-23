@@ -10,6 +10,6 @@ public interface UserService {
     void updateUser(long id, User user);
     void deleteUser(long id);
     Collection<User> getUsers(String username);
-    Optional<User> getUserById(long id);
+    Optional<User> getUserByUsername(String username);
     boolean userExistsById(long id);
 }

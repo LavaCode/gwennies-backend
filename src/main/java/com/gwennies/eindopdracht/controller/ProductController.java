@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,7 +31,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping("/products")
-	@CrossOrigin(origins = "http://localhost:8080")
+	@CrossOrigin(origins = "http://localhost:8090")
 	public ResponseEntity<List<Product>> getAllProducts() {
 		List<Product> list = productService.getAllProducts();
 		return ResponseEntity.ok(list);

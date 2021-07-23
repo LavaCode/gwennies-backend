@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
             user = optionalUser.get();
             user.setUsername(newUser.getUsername());
             user.setEmail(newUser.getEmail());
+            user.setFirstname(newUser.getFirstname());
+            user.setLastname(newUser.getLastname());
+            user.setStreetname(newUser.getStreetname());
+            user.setZipcode(newUser.getZipcode());
+            user.setCountry(newUser.getCountry());
             // user.setPassword(newUser.getPassword());
             user.setPassword(encoder.encode(newUser.getPassword()));
             userRepository.save(user);
@@ -64,9 +69,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserById(long id) {
-        if (!userRepository.existsById(id)) throw new RecordNotFoundException();
-        return userRepository.findById(id);
+    public Optional<User> getUserByUsername(String username) {
+        if (!userRepository.existsByUsername(username)) throw new RecordNotFoundException();
+        return userRepository.findByUsername(username);
     }
 
     @Override

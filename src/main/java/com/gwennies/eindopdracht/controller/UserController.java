@@ -30,9 +30,9 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers(username));
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<User>> getUser(@PathVariable("id") int id) {
-        return ResponseEntity.ok().body(userService.getUserById(id));
+    @GetMapping(value = "/{username}")
+    public ResponseEntity<Optional<User>> getUserByUsername(@PathVariable("username") String username) {
+        return ResponseEntity.ok().body(userService.getUserByUsername(username));
     }
 
     @PutMapping(value = "/{id}")
