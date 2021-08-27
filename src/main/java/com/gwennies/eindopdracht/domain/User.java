@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 import java.util.Set;
 
 @Entity
@@ -36,6 +37,7 @@ public class User {
     private String lastname;
     private String streetname;
     private String zipcode;
+    private String city;
     private String country;
     private String password;
 
@@ -49,13 +51,14 @@ public class User {
 
     }
 
-    public User(String username, String email, String firstname, String lastname, String streetname, String zipcode, String country, String password) {
+    public User(String username, String email, String firstname, String lastname, String streetname, String zipcode, String city, String country, String password) {
         this.username = username; 
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.streetname = streetname;
         this.zipcode = zipcode;
+        this.city = city;
         this.country = country;
         this.password = password;
     }
@@ -122,6 +125,14 @@ public class User {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getCountry() {

@@ -12,6 +12,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
@@ -30,6 +32,7 @@ public class Product {
     @Column
     private String short_description;
     private String long_description;
+    private boolean sale;
 
 	@NotNull
 	@ColumnDefault("0")
@@ -38,21 +41,68 @@ public class Product {
 	int quantity;
 
     @NotNull
+    @ColumnDefault("0")
+    @Max(value = 100, message= "Invalid number")
+    @Min(value = 0, message="discount should be 0 or higher")
+    int sale_discount;
+
+    @NotNull
 	@ColumnDefault("0")
     @Min(value = 0, message= "Quantity should be 0 or higher.")
     private double price;
+
+    @Column(nullable = true, length = 64)
+    private String photos;
 
     public Product() {
 		super();
 	}
 
-	public Product(String name, String shortDescription, String longDescription, double price, int quantity) {
+	public Product(String name, String shortDescription, String longDescription, double price, int quantity, boolean sale, int saleDiscount) {
 		super();
 		this.name = name;
 		this.quantity = quantity;
         this.short_description = shortDescription;
         this.long_description = longDescription;
         this.price = price;
+        this.sale = sale;
+        this.sale_discount = saleDiscount;
+    }
+
+    public String getShort_description() {
+        return this.short_description;
+    }
+
+    public void setShort_description(String short_description) {
+        this.short_description = short_description;
+    }
+
+    public String getLong_description() {
+        return this.long_description;
+    }
+
+    public void setLong_description(String long_description) {
+        this.long_description = long_description;
+    }
+
+    public boolean isSale() {
+        return this.sale;
+    }
+
+    public boolean getSale() {
+        return this.sale;
+    }
+
+    public void setSale(boolean sale) {
+        this.sale = sale;
+    }
+
+    public int getSaleDiscount() {
+        return this.sale_discount;
+    }
+
+    public void setSaleDiscount(int saleDiscount) {
+        this.sale_discount = saleDiscount;
 	}
 
     public Long getId() {
@@ -101,6 +151,14 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getProductPicture() {
+        return photos;
+    }
+
+    public void setProductPicture(String photos) {
+        this.photos= photos;
     }
 }
 

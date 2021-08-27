@@ -6,7 +6,7 @@
   returns json array of all users
   *- provide JWT token*
 
-* GET http://localhost:8090/users/{id}
+* GET http://localhost:8090/users/{username}
   return json object of single users 
   *- provide JWT token*
 

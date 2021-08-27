@@ -24,6 +24,7 @@ public class SignupRequest {
     private String lastname;
     private String streetname;
     private String country;
+    private String city;
 
     @NotBlank
     @Size(min = 6, max = 6)
@@ -107,6 +108,14 @@ public class SignupRequest {
 
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
 }

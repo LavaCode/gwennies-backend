@@ -87,6 +87,7 @@ public class AuthorizationService {
                 signUpRequest.getLastname(),
                 signUpRequest.getStreetname(),
                 signUpRequest.getZipcode(),
+                signUpRequest.getCity(),
                 signUpRequest.getCountry(),
                 encoder.encode(signUpRequest.getPassword())                
                 );
