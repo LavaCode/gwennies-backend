@@ -56,8 +56,8 @@ public class ProductController {
 		return ResponseEntity.ok(product);
 	}
 
-	@PostMapping(value = "/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-	public ResponseEntity<?> addProduct(@Valid @RequestBody Product product, Errors errors, @RequestParam("image") MultipartFile multipartFile) throws ProductException, IOException {
+	@PostMapping("/add")
+	public ResponseEntity<?> addProduct(@Valid @RequestBody Product product, Errors errors) throws ProductException {
 
 		if (errors.hasErrors()) {
 			throw new ProductException(errors.getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
@@ -77,9 +77,11 @@ public class ProductController {
 		return ResponseEntity.created(location).build();
 	}
 
+
+	// TO-DO: LINK PRODUCT EN IMAGE(S)
 	@PostMapping(value = "files", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE} )
 		  public ResponseEntity<Object> addProduct(AddProductDto dto) throws IOException {
-			 FileUploadUtil.saveFile("static/files" + dto.getName(), dto.file.getOriginalFilename(), dto.file);
+			 FileUploadUtil.saveFile("static/files/" + dto.getName(), dto.file.getOriginalFilename(), dto.file);
 			 return ResponseEntity.ok().build();
 		  }
 
