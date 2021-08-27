@@ -69,20 +69,17 @@ public class ProductController {
 					HttpStatus.CONFLICT);
 
 		}
-
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		
+	
 		productService.addProduct(product);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId())
 				.toUri();
-		String uploadDir = "product-photos";
-		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
 		return ResponseEntity.created(location).build();
 	}
 
 	@PostMapping(value = "files", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE} )
 		  public ResponseEntity<Object> addProduct(AddProductDto dto) throws IOException {
-			 FileUploadUtil.saveFile("static/files", dto.file.getOriginalFilename(), dto.file);
+			 FileUploadUtil.saveFile("static/files" + dto.getName(), dto.file.getOriginalFilename(), dto.file);
 			 return ResponseEntity.ok().build();
 		  }
 
