@@ -12,8 +12,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
@@ -51,8 +49,15 @@ public class Product {
     @Min(value = 0, message= "Quantity should be 0 or higher.")
     private double price;
 
-    @Column(nullable = true, length = 64)
-    private String photos;
+    private String imageString; 
+
+    public int getSale_discount() {
+        return this.sale_discount;
+    }
+
+    public void setSale_discount(int sale_discount) {
+        this.sale_discount = sale_discount;
+    }
 
     public Product() {
 		super();
@@ -153,13 +158,14 @@ public class Product {
         this.price = price;
     }
 
-    public String getProductPicture() {
-        return photos;
+    public String getImageString() {
+        return this.imageString;
     }
 
-    public void setProductPicture(String photos) {
-        this.photos= photos;
+    public void setImageString(String imageString) {
+       this.imageString = imageString;
     }
+
 }
 
 

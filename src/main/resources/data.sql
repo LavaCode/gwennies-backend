@@ -11,7 +11,7 @@ INSERT INTO user_role(user_id, role_id) VALUES
 (999, 3);
 
 -- Create default products [Start at ID 9001]
-INSERT INTO product(long_description, name, price, quantity, short_description, photos, sale, sale_discount) VALUES 
-('This is a cool mombag', 'BAG_01', 29.99, 2, 'handmade mombag', 'default.png', 'true', 10);
+INSERT INTO product(long_description, name, price, quantity, short_description, sale, sale_discount) VALUES 
+('This is a cool mombag', 'BAG_01', 29.99, 2, 'handmade mombag', 'true', 10);
 
 -- Upload default images [to be made/tested]

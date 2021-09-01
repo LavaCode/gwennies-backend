@@ -2,7 +2,8 @@ package com.gwennies.eindopdracht.controller;
 
 import java.io.IOException;
 import java.net.URI;
-import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,10 +28,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -56,34 +52,52 @@ public class ProductController {
 		return ResponseEntity.ok(product);
 	}
 
-	@PostMapping("/add")
-	public ResponseEntity<?> addProduct(@Valid @RequestBody Product product, Errors errors) throws ProductException {
+	// @PostMapping("/add")
+	// public ResponseEntity<?> addProduct(@Valid @RequestBody Product product, Errors errors) throws ProductException {
 
-		if (errors.hasErrors()) {
-			throw new ProductException(errors.getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
-		}
-
-		boolean productExists = productService.findProductByName(product.getName()) != null;
-		if (productExists) {
-			throw new ProductException("Unable to create. A product with name " + product.getName() + " already exist.",
-					HttpStatus.CONFLICT);
-
-		}
+	// 	if (errors.hasErrors()) {
+	// 		throw new ProductException(errors.getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
+	// 	}
 	
-		productService.addProduct(product);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId())
-				.toUri();
+	// 	productService.addProduct(product);
+	// 	URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(product.getId())
+	// 			.toUri();
 
-		return ResponseEntity.created(location).build();
-	}
+	// 	return ResponseEntity.created(location).build();
+	// }
 
-
-	// TO-DO: LINK PRODUCT EN IMAGE(S)
 	@PostMapping(value = "files", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE} )
-		  public ResponseEntity<Object> addProduct(AddProductDto dto) throws IOException {
-			 FileUploadUtil.saveFile("static/files/" + dto.getName(), dto.file.getOriginalFilename(), dto.file);
-			 return ResponseEntity.ok().build();
-		  }
+	public ResponseEntity<Object> addProduct(AddProductDto dto) throws IOException {
+		String message = "";
+		Product product = new Product(); 
+		boolean productExists = productService.findProductByName(product.getName()) != null;
+		List<String> fileNames = new ArrayList<>();
+			product.setName(dto.name);
+			product.setPrice(dto.price);
+			product.setShortDescription(dto.short_description);
+			product.setLongDescription(dto.long_description);
+			product.setSale(dto.sale);
+			product.setSaleDiscount(dto.sale_discount);
+			product.setQuantity(dto.quantity);
+			product.setImageString("test-string");
+			if (productExists) {
+				throw new ProductException("Unable to create. A product with name " + product.getName() + " already exist.",
+				HttpStatus.CONFLICT);
+			}
+				Product savedProduct = productService.addProduct(product);
+				Arrays.asList(dto.files).stream().forEach(file -> {
+				try {
+					FileUploadUtil.saveFile("static/files/" + savedProduct.getId(), file.getOriginalFilename(), file);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				fileNames.add(file.getOriginalFilename());
+				});
+			message = "Uploaded the files successfully: " + fileNames;
+			return ResponseEntity.ok().build();
+	}
+			   
 
 	@PutMapping("/change/{id}")
 	public ResponseEntity<?> updateProduct(@PathVariable Long id, @Valid @RequestBody Product product, Errors errors)
@@ -110,15 +124,4 @@ public class ProductController {
 		productService.deleteProduct(id);
 		return new ResponseEntity<Product>(HttpStatus.NO_CONTENT);
 	}
-
-	@PostMapping("/product/productpicture")
-    public ResponseEntity<Object> setProductPicture( @RequestParam("file") MultipartFile file, Principal principal) throws IOException {
-        productService.uploadProductPicture(file, principal);
-        return ResponseEntity.ok().body("Product picture updated!");
-    }
-
-    @GetMapping("/product/productpicture")
-    public ResponseEntity<Object> getProductPicture(Principal principal) throws IOException {
-       return ResponseEntity.ok().body(productService.getProductPicture(principal));
-    }
 }
